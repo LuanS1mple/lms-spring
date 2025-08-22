@@ -1,0 +1,169 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+  color: #000;
+}
+
+.course-container {
+  padding: 40px;
+}
+
+h1 {
+  margin: 0 0 5px;
+  font-size: 28px;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.stat-card span {
+  color: #555;
+  font-size: 14px;
+}
+
+.stat-card p {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+/* Filters */
+.filters {
+  border: 1px solid #eee;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.filters h2 {
+  margin: 0 0 15px;
+}
+
+.filter-bar {
+  display: flex;
+  gap: 15px;
+}
+
+.filter-bar input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.filter-bar select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.btn-create {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Table */
+.course-list h2 {
+  margin-bottom: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+thead {
+  background: #fafafa;
+}
+
+th, td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+  vertical-align: top;
+}
+
+td p {
+  color: #666;
+  margin: 4px 0 0;
+  font-size: 13px;
+}
+
+/* Progress */
+.progress {
+  width: 100px;
+  height: 6px;
+  background: #eee;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+.progress span {
+  display: block;
+  height: 100%;
+  background: #000;
+}
+
+/* Badge */
+.badge {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  text-transform: lowercase;
+}
+
+.badge.active {
+  background: #000;
+  color: #fff;
+}
+
+.badge.draft {
+  background: #f0f0f0;
+  color: #444;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.actions button {
+  border: none;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.actions .edit {
+  background: #f5f5f5;
+}
+
+.actions .delete {
+  background: #ff4d4f;
+  color: #fff;
+}

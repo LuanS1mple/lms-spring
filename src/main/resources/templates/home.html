@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple LMS</title>
+  <link rel="stylesheet" href="../static/css/home_style.css"/>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+</head>
+<body>
+
+  <div id="navbar"></div>
+
+  <section class="hero">
+    <h1>Welcome to Simple LMS</h1>
+    <p>A comprehensive Learning Management System for students, teachers, and administrators</p>
+    <div class="buttons">
+      <a href="#" class="btn-primary">Get Started</a>
+      <a href="#" class="btn-outline">Sign Up</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature-card">
+      <div class="icon">
+        <i class="fas fa-book-open"></i>
+      </div>
+      <h3>Course Management</h3>
+      <p>Create, manage, and deliver courses with ease</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="icon">
+        <i class="fas fa-users"></i>
+      </div>
+      <h3>User Roles</h3>
+      <p>Support for students, teachers, and administrators</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="icon">
+        <i class="fas fa-medal"></i>
+      </div>
+      <h3>Assignments & Grading</h3>
+      <p>Submit assignments and track progress</p>
+    </div>
+  </section>
+  <script>
+  fetch('navbar.html')
+    .then(res => res.text())
+    .then(html => document.getElementById('navbar').innerHTML = html);
+</script>
+</body>
+</html>

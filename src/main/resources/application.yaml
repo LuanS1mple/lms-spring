@@ -1,0 +1,26 @@
+server:
+    port: 8080
+    servlet:
+        context-path: /lms
+
+spring:
+    datasource:
+        url: jdbc:sqlserver://localhost:1433;databaseName=lms_cpl;encrypt=true;trustServerCertificate=true
+        driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+        username: sa
+        password: 123
+    jpa:
+        hibernate:
+            ddl-auto: none
+            naming:
+                physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        show-sql: true
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.SQLServerDialect
+                globally_quoted_identifiers: true
+
+jwt:
+    signerKey: 1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij
+    valid-duration: 3600 # in seconds
+    refreshable-duration: 36000 # in seconds

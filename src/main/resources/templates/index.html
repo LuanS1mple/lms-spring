@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Trang chủ Thymeleaf</title>
+</head>
+<body>
+<h1>Chào mừng bạn đến với Spring Boot + Thymeleaf!</h1>
+
+<p>Ngày hôm nay là: <span th:text="${today}">Ngày</span></p>
+
+<p>Danh sách sản phẩm:</p>
+<ul>
+    <li th:each="item : ${items}" th:text="${item}">Tên sản phẩm</li>
+</ul>
+</body>
+</html>

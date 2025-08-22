@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        .nav-pills .nav-link.bg-light:hover {
+            background-color: #e9ecef;
+            color: #000;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: #e9ecef !important;
+            color: #000 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div th:replace="~{navbar-user :: headerUser}"></div>
+    <div class="container w-75 d-flex flex-column justify-content-center my-3">
+        <div>
+            <img style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover;" class="rounded-1" src="https://v0-simple-lms-system-eight.vercel.app/placeholder.svg?height=200&width=400" />
+            <div class="my-4">
+                <div>
+                    <p id="heading" class="fw-bold fs-3 m-0"></p>
+                    <p id="heading-title" class="text-muted"></p>
+                </div>
+                <div class="d-flex gap-3 align-items-center">
+                    <div>
+                        <i class="fas fa-user"></i>
+                        <span id="siso"></span>
+                    </div>
+                    <div>
+                        <i class="fas fa-tasks"></i>
+                        <span id="baitap"></span>
+                    </div>
+                    <div>
+                        <i class="fas fa-book"></i>
+                        <span id="tailieu"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="nav nav-pills nav-fill bg-white">
+                <button class="nav-link col-4 text-dark bg-light active" data-bs-toggle="pill"
+                    data-bs-target="#overview">
+                    Overview
+                </button>
+                <button class="nav-link col-4 text-dark bg-light" data-bs-toggle="pill" data-bs-target="#materials">
+                    Materials
+                </button>
+                <button class="nav-link col-4 text-dark bg-light" data-bs-toggle="pill" data-bs-target="#assignments">
+                    Assignments
+                </button>
+            </div>
+
+
+            <div class="tab-content border border-1 rounded-1 px-3 py-3 mt-2">
+
+                <div class="tab-pane fade show active" id="overview">
+                    <p class="fw-bold fs-4" th:text="${response.data.course.title}"></p>
+                    <p th:text="${response.data.course.description}">
+                    </p>
+
+                    <div class="row" style="font-size: small;">
+                        <div class="col-6">
+                            <p class="mb-1 fw-semibold">Course Information</p>
+                            <div class="d-flex justify-content-between"><span>Author:</span> <span th:text="${response.data.course.author}"></span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <p class="mb-1 fw-semibold">Quick Stats</p>
+                            <div class="d-flex justify-content-between"><span>Total Materials:</span> <span th:text="${#lists.size(response.data.contents)}"></span>
+                            </div>
+                            <div class="d-flex justify-content-between"><span>Total Assignments:</span> <span th:text="${#lists.size(response.data.contents)}"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="materials">
+                    <h5 class="fw-bold">Course Materials</h5>
+                    <p class="text-muted">Download course materials</p>
+                    <div th:each="row : ${response.data.contents}" class="d-flex justify-content-between align-items-center border rounded p-2 mb-2">
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-file-earmark-text fs-4 text-secondary me-2"></i>
+                            <div>
+                                <div th:text="${row.title}"></div>
+                                <small class="text-muted" th:text="'Uploaded on' + ${row.createdAt}"></small>
+                            </div>
+                        </div>
+                        <button th:value="${row.contentUrl}" onclick="download(this)" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-download me-1"></i> Download
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="assignments">
+                    <h4 class="fw-bold">Assignments</h4>
+                    <span class="text-muted">View and submit assignments</span>
+                    <div th:each="row : ${response.data.courseTests}" class="border rounded d-flex flex-column p-3 mt-2">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex flex-column gap-3">
+                                <div>
+                                    <h6 class="fw-bold mb-0" th:text="${row.testTittle}"></h6>
+                                    <span class="text-muted" th:text="${row.testDescription}"></span><br>
+                                </div>
+                                <small class="text-muted mt-3">
+                                    <i class="bi bi-calendar-event"></i>
+                                    <span th:text="'Duration: ' + ${row.duration}"></span>
+                                </small>
+                            </div>
+
+                            <div class="text-end d-flex flex-column gap-3">
+                                <div class="text-end d-flex flex-column gap-1">
+                                    <span th:id="'score-' + ${row.id}" class="text-dark small mb-1"></span>
+
+                                    <button th:id="'action-btn-' + ${row.id}"
+                                            th:value="${row.id}"
+                                            style="height: 30px;"
+                                            class="badge bg-light text-dark border"
+                                            th:onclick="'handleResult(this)'">
+                                        View Result
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+<!--    <script src="../static/js/user_CD.js">-->
+    <script>
+            function download(element){
+                alert("Tải xuống thành công")
+            }
+                function handleResult(btn){
+                    const url = "http://localhost:8080/lms/course-tests/" + btn.value
+                    const rowId = btn.value;
+                    const scoreSpan = document.getElementById(`score-${rowId}`);
+
+                    fetch(url, {
+                        method: 'GET',
+                        headers: { 'Content-Type': 'application/json' }
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                       if (data.data != null) {
+                            scoreSpan.textContent = `Điểm: ${data.data.score}`;
+                            btn.disabled = true;
+                            btn.textContent = 'Submit';
+                            btn.className = 'btn btn-secondary  btn-sm';
+                        } else {
+                            scoreSpan.textContent = 'Chưa có kết quả';
+                            btn.disabled = false;
+                            btn.textContent = 'Submit';
+                            btn.className = 'btn btn-danger  btn-sm';
+                            btn.onclick = function() {
+                                submitAssignment(rowId);
+                            };
+                        }
+                            console.log(data)
+                    })
+                }
+                async function submitAssignment(assId){
+                     const file =await openFileDialogAndGetInfo()
+                     const fileUrl = file.fileUrl
+                    console.log(fileUrl)
+                    const submitUrl = "http://localhost:8080/lms/course-tests/" + assId
+                    fetch(submitUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ fileUrl })
+                    })
+                    .then(res => res.json())
+                    .then(data => console.log(data))
+                }
+            async function openFileDialogAndGetInfo() {
+              return new Promise((resolve, reject) => {
+                const input = document.createElement("input");
+                input.type = "file";
+                input.accept = "*/*";
+                input.style.display = "none";
+
+                input.onchange = () => {
+                  const file = input.files?.[0];
+                  if (!file) {
+                    reject("Không có file nào được chọn");
+                    return;
+                  }
+
+                  const fileName = file.name;
+                  const fileSize = file.size;
+                  const fileUrl = URL.createObjectURL(file);
+
+                  resolve({
+                    fileName,
+                    fileSize,
+                    fileUrl
+                  });
+                };
+
+                input.click();
+              });
+}
+    </script>
+</body>
+
+</html>

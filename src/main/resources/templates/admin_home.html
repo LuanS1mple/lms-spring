@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="../static/css/admin_home_style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <link rel="stylesheet" th:href="@{/css/navbar_admin_style.css}"/>
+  <link rel="stylesheet" th:href="@{/css/navbar.css}">
+</head>
+<body>
+<div th:replace="~{navbar_admin :: headerAdmin}"></div>
+
+<main class="dashboard-container">
+
+    <!-- Welcome -->
+    <h1>Welcome back, Admin User!</h1>
+    <p class="subtitle">System overview and management</p>
+
+    <!-- Stats cards -->
+    <section class="stats">
+      <div class="stat-card">
+        <div class="stat-header">
+          <span>Total Courses</span>
+          <i class="far fa-copy"></i>
+        </div>
+        <p class="stat-value">3</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <span>Total Students</span>
+          <i class="fas fa-user-friends"></i>
+        </div>
+        <p class="stat-value">156</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <span>Total Teachers</span>
+          <i class="fas fa-user"></i>
+        </div>
+        <p class="stat-value">12</p>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-header">
+          <span>Active Assignments</span>
+          <i class="far fa-file-alt"></i>
+        </div>
+        <p class="stat-value">28</p>
+      </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+      <h2>Quick Actions</h2>
+      <div class="actions">
+        <button class="btn btn-primary">
+            <a style="text-decoration: none; color: white;" href="admin_CM.html">Manage Courses</a>
+        </button>
+        <button class="btn btn-secondary">
+          <a style="text-decoration: none; color: black;" href="admin_UM.html">Manage Users</a>
+        </button>
+      </div>
+    </section>
+
+  </main>
+    <script>
+    fetch('navbar_admin.html')
+      .then(res => res.text())
+      .then(html => document.getElementById('navbar_admin').innerHTML = html);
+  </script>
+</body>
+</html>

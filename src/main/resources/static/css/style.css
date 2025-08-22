@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+}
+
+.box {
+    border: 1px solid black;
+}
+
+.flex-grow {
+    flex-grow: 1;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.h-100dvh {
+    height: 100dvh;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+input[name=search] {
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-wrapper::before {
+    content: '🔎';
+    position: absolute;
+    top: 3px;
+    left: 5px;
+}

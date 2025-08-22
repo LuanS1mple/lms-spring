@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Navbar</title>
+  <!-- Font Awesome cho icon user -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <link rel="stylesheet" th:href="@{/css/navbar_admin_style.css}"/>
+  <link rel="stylesheet" th:href="@{/css/navbar.css}">
+</head>
+<body>
+
+  <header th:fragment="headerAdmin" class="navbar">
+    <div  class="nav-left">
+      <span class="logo-icon">🎓</span>
+      <span class="logo-text">Simple LMS</span>
+
+      <nav class="nav-links">
+        <a th:href="@{/admin-cm}">Courses</a>
+        <a th:href="@{/users/all}">Users</a>
+      </nav>
+    </div>
+
+    <div class="nav-right">
+      <i class="fas fa-user"></i>
+    </div>
+  </header>
+
+</body>
+</html>

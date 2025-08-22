@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+<div th:replace="~{navbar-user :: headerUser}"></div>
+</div>
+    <div class="d-flex flex-column">
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <p class="fs-2 fw-bold">Welcome back, Jane Student!</p>
+            <p>Here are your enrolled courses</p>
+        </div>
+        <div id="courses" class="d-flexf gap-3 row align-items-center justify-content-center">
+            <div th:each="data : ${response.data}" class="card col-3 px-0">
+                <img style="width: 100%; aspect-ratio: 16 / 9; object-fit: cover;" class="rounded-1" src="https://v0-simple-lms-system-eight.vercel.app/placeholder.svg?height=200&width=400" />
+                <div class="px-3 d-flex flex-column">
+                    <span class="card-title p-2 fw-bold" th:text="${data.course.title}"></span>
+                    <span class="card-text px-2" th:text="${data.course.description}"></span>
+<!--                    <div class="d-flex align-items-center px-2">-->
+<!--                        <i class="fas fa-user pe-1"></i>-->
+<!--                        <span>${data.data.enrolled} Students</span>-->
+<!--                    </div>-->
+                    <div class="d-flex justify-content-start align-items-center px-2">
+                        <div class="pe-2">
+                            <i class="fas fa-file-alt"></i>
+                            <span th:text="${#lists.size(data.courseTests)}"></span> assignments
+                        </div>
+                        <div>
+                            <i class="fas fa-book"></i>
+                            <span th:text="${#lists.size(data.contents)}"></span> assignments
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 my-2">
+                        <button class="border border-dark rounded-1 btn-dark py-1 flex-grow-1" style="flex-basis: 70%;">
+                            <a style="text-decoration: none; color: white" th:href="@{/courses/detail(courseId=${data.course.id})}">View course</a>
+                        </button>
+
+                        <button onclick="unEnroll(this)" th:value="${data.course.id}" class="border border-white rounded-1 py-1 flex-grow-1" style="flex-basis: 30%; background-color: red; color: white;">
+                            Unenroll
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function unEnroll(btn){
+            const courseId= btn.value
+            const url = "http://localhost:8080/lms/courses/un-enroll?courseId="+courseId
+            fetch(url, {
+                method: "DELETE"
+            })
+        }
+    </script>
+    <script src="/js/user_CM.js">
+    </script>
+</body>
+
+</html>

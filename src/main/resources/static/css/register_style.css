@@ -1,0 +1,86 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/* Căn giữa khối đăng ký */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 60px); /* trừ chiều cao navbar */
+}
+
+.register-box {
+  width: 380px;
+  padding: 30px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.register-box h1 {
+  margin: 0 0 10px;
+  font-size: 24px;
+}
+
+.register-box .subtitle {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* Form */
+.register-box label {
+  display: block;
+  font-size: 14px;
+  margin: 12px 0 6px;
+}
+
+.register-box input,
+.register-box select {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.register-box input:focus,
+.register-box select:focus {
+  border-color: #333;
+}
+
+/* Nút đăng ký */
+.btn-register {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background: #000;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-register:hover {
+  background: #333;
+}
+
+/* Link đăng nhập */
+.login-link {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.login-link a {
+  text-decoration: none;
+  color: #000;
+  font-weight: bold;
+}
