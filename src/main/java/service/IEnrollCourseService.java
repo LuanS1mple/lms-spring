@@ -15,4 +15,6 @@ public interface IEnrollCourseService {
     public List<Course> getEnrolledCourseByTitle(String title,int userId);
     public List<Course> getUnEnrollCourseByTittle(String title, int userId);
     public boolean unEnroll(int userId,int courseId);
+    public int count();
+
 }

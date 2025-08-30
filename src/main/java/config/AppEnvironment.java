@@ -1,33 +1,32 @@
 package config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
-public class Environment {
+@Component
+public class AppEnvironment {
     //server
     @Value("${server.servlet.context-path}")
-    public static String CONTEXT_PATH;
+    public String CONTEXT_PATH;
     @Value("${server.port}")
-    public static int PORT;
+    public  int PORT;
 
     //DB
     @Value("${spring.datasource.url}")
-    public static String MSSQL_URL;
+    public  String MSSQL_URL;
     @Value("${spring.datasource.driver-class-name}")
-    public static String SQL_DRIVER_CLASS_NAME;
+    public  String SQL_DRIVER_CLASS_NAME;
     @Value("${spring.datasource.username}")
-    public static String DB_USERNAME;
+    public  String DB_USERNAME;
     @Value("${spring.datasource.password}")
-    public static String DB_PASSWORD;
+    public  String DB_PASSWORD;
 
     //jwt
     @Value("${jwt.signerKey}")
-    public static String SIGNER_KEY;
+    public  String SIGNER_KEY;
     @Value("${jwt.valid-duration}")
-    public static int JWT_VALID_DURATION_AT;
+    public  int JWT_VALID_DURATION_AT;
     @Value("${jwt.refreshable-duration}")
-    public static int JWT_VALID_DURATION_RT;
+    public  int JWT_VALID_DURATION_RT;
 
-    public static void main(String[] args) {
-        System.out.println(CONTEXT_PATH);
-    }
 }

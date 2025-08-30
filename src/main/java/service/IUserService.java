@@ -8,7 +8,7 @@ import java.util.List;
 public interface IUserService {
     public boolean isCorrectAccount(String email,String password);
     public User getByEmail(String email);
-    public User add(User user);
+    public User save(User user);
     public User getById(int id);
     public List<User> getAll();
     public List<User> orderByName();
@@ -17,4 +17,9 @@ public interface IUserService {
     public List<User> search(String pattern);
     public User adminLoggin(String email,String password);
     public boolean isExistEmail(String email);
+    public int countAll();
+    public int countAdmin();
+    public int countActive();
+    public List<User> findByRoleAndName(int role,String name);
+    public boolean isCorrectPassword(String password,User user);
 }

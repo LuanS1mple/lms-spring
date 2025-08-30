@@ -145,7 +145,7 @@ public class EnrollClassRoomService implements IEnrollClassRoomSerivce {
         try{
             enrollClassRoomRepository.getClassesByUser_Id(userId).stream()
                     .filter(classRoom -> classRoom.getId()==classRoomId).findFirst()
-                    .orElseThrow(() -> new AppException(ErrorCode.GET_ENROLLCLASS_FAIL));
+                    .orElseThrow(() -> new NoSuchElementException());
             return true;
         }
         catch (NoSuchElementException e){

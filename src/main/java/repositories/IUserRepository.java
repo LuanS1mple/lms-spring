@@ -21,4 +21,8 @@ public interface IUserRepository /*extends JpaRepository<User, Integer> */{
 //    @Transactional
 //    @Query(value = "update [user] set status =0 where id = :id", nativeQuery = true)
     public void delete(/*@Param("id") */int userId);
+    public int countAll();
+    public int countAdmin();
+    public int countActive();
+    public List<User> findByRoleAndName(int role, String name);
 }

@@ -11,15 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import service.IUserService;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class RegisterController {
@@ -44,7 +37,7 @@ public class RegisterController {
         }
         else{
             User newUser = userMapper.userRequesttoUser(request);
-            userService.add(newUser);
+            userService.save(newUser);
             UserResponse response = UserResponse.builder()
                     .user(newUser)
                     .status(ResponseStatus.CREATED_USER_SUCCESS.getStatus())

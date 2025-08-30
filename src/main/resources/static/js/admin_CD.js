@@ -23,7 +23,7 @@ async function uploadMaterial() {
     },
     body: JSON.stringify(body)
   })
-  const data =await  res.json()
+  const data =await res.json()
   console.log(data)
   alert(data.message)
   location.reload()
@@ -58,7 +58,7 @@ async function openFileDialogAndGetInfo() {
 }
 
 function redirectToNewAss() {
-  window.location.href = "http://localhost:8080/lms/admin-new-assignment/" + courseId
+  window.location.href = "http://localhost:8080/lms/new-course-test?courseId=" + courseId
 }
 
 async function addElementAssignment(dataAssignment) {

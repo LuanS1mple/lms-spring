@@ -18,6 +18,13 @@ import java.util.Optional;
 
 @Service
 public class EnrollCourseService implements IEnrollCourseService {
+    @Override
+    public int count() {
+        int rs =enrollCourseRepository.count();
+        if(rs<0) throw new AppException(ErrorCode.GET_COURSES_FAIL);
+        return rs;
+    }
+
     @Autowired
     private IEnrollCourseRepository enrollCourseRepository;
     @Autowired

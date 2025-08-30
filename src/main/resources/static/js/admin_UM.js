@@ -1,4 +1,13 @@
 //    const token = localStorage.getItem("token")
+
+
+    function reloadUser(){
+        const roleSearch = document.getElementById('roleSearch').value;
+        const nameSearch = document.getElementById('nameSearch').value.trim();
+        searchUserUrl = "http://localhost:8080/lms/users/all/search?name="+nameSearch+"&role="+roleSearch;
+        window.location.href =  searchUserUrl;
+    }
+
     function addUser() {
         const fullName = document.getElementById('addName').value;
         const email = document.getElementById('addEmail').value;

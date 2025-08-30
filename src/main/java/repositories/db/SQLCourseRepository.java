@@ -107,5 +107,44 @@ public class SQLCourseRepository implements ICourseRepository {
         }
     }
 
+    @Override
+    public int countAll() {
+        try(Session session = sessionFactory.openSession()){
+            Long rs= session.createQuery("select count(*) from Course", Long.class)
+                    .getSingleResult();
+            return rs.intValue();
+        }
+        catch (Exception e){
+            return -1;
+        }
+    }
+
+    @Override
+    public int countActive() {
+        try(Session session = sessionFactory.openSession()){
+            Long rs= session.createQuery("select count(*) from Course where status=:status", Long.class)
+                    .setParameter("status", "active")
+                    .getSingleResult();
+            return rs.intValue();
+        }
+        catch (Exception e){
+            return -1;
+        }
+    }
+
+        @Override
+        public List<Course> findByName(String name) {
+            String sql = "From Course c where c.title like :name";
+            try (Session session = sessionFactory.openSession()){
+                return session.createQuery(sql, Course.class)
+                        .setParameter("name","%"+name+"%")
+                        .list();
+            }
+            catch (Exception e){
+                System.out.println(e);
+                return null;
+            }
+        }
+
 
 }

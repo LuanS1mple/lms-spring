@@ -23,4 +23,7 @@ public interface ICourseRepository /*extends JpaRepository<Course, Integer> */{
 
 //    @Query(value = "select * from course where status ='inactive'", nativeQuery = true)
     public List<Course> inactiveCourses();
+    public int countAll();
+    public int countActive();
+    public List<Course> findByName(String name);
 }

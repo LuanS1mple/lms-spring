@@ -65,20 +65,17 @@ public class SQLEnrollCourseRepository implements IEnrollCourseRepository {
 
     @Override
     public EnrollCourse save(EnrollCourse enrollCourse) {
-        String sql = "insert into EnrollCourse (userId, courseId, enrollAt) values (?, ?, ?)";
-
-        try (Connection connection = DbFacade.getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-
-            ps.setInt(1, enrollCourse.getUser().getId());
-            ps.setInt(2, enrollCourse.getCourse().getId());
-            ps.setTimestamp(3, new Timestamp(enrollCourse.getEnrollAt().getTime()));
-
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        Transaction transaction=null;
+        try (Session session=sessionFactory.openSession()){
+            transaction=session.beginTransaction();
+            EnrollCourse rs =session.merge(enrollCourse);
+            transaction.commit();
+            return rs;
+        } catch (Exception e) {
+            System.out.println(e);
+            if(transaction!=null) transaction.rollback();
+            return null;
         }
-        return null;
     }
 
     @Override
@@ -96,6 +93,19 @@ public class SQLEnrollCourseRepository implements IEnrollCourseRepository {
             System.out.println(e);
             if(transaction!=null) transaction.rollback();
             return false;
+        }
+    }
+
+    @Override
+    public int count() {
+        String sql = "Select count(*) from EnrollCourse";
+        try (Session session = sessionFactory.openSession()){
+            Long rs = session.createQuery(sql, Long.class)
+                    .getSingleResult();
+            return rs.intValue();
+        }
+        catch (Exception e){
+           return -1;
         }
     }
 

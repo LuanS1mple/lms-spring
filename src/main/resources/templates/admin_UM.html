@@ -21,31 +21,30 @@
     <p class="subtitle">Manage all users in the system</p>
 
     <!-- Stats -->
-    <section class="stats">
-      <div class="stat-card">
-        <span>Total Users</span>
-        <p>7</p>
-      </div>
-      <div class="stat-card">
-        <span>Admins</span>
-        <p>2</p>
-      </div>
-      <div class="stat-card">
-        <span>User</span>
-        <p>5</p>
-      </div>
-    </section>
+  <section class="stats">
+    <div class="stat-card">
+      <span>Total Users</span>
+      <p th:text="${response.data.totalUser}"></p>
+    </div>
+    <div class="stat-card">
+      <span>Admins</span>
+      <p th:text="${response.data.totalAdmin}"></p>
+    </div>
+    <div class="stat-card">
+      <span>Users Active</span>
+      <p th:text="${response.data.totalUserActive}"></p>
+    </div>
+  </section>
 
     <!-- Filters -->
     <section class="filters">
       <h2>Filters</h2>
       <div class="filter-bar">
-        <input type="text" placeholder="Search users...">
-        <select>
-          <option>All Roles</option>
-          <option>Admin</option>
-          <option>Teacher</option>
-          <option>Student</option>
+        <input id="nameSearch" name="nameSearch" type="text" placeholder="Search users...">
+        <select id="roleSearch" name="roleSearch" onchange="reloadUser()">
+          <option value="-1">All Roles</option>
+          <option value="1">Admin</option>
+          <option value="2">User</option>
         </select>
       </div>
     </section>
@@ -72,7 +71,7 @@
           </tr>
         </thead>
         <tbody id="tbody-user">
-          <tr th:each="row :${response.data}">
+          <tr th:each="row :${response.data.users}">
             <td th:text="${row.fullName}"></td>
             <td th:text="${row.email}"></td>
             <td><span class="badge role-admin" th:text="${row.role == 1 ? 'Admin' : 'User'}"></span></td>

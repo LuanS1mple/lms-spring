@@ -50,6 +50,7 @@ public class AssignmentController {
     @GetMapping("result")
     @ResponseBody
     public ApiResponse<AssignmentResultResponse> getResult(@RequestParam int assignmentId, HttpSession session) {
+        try {
             int userId = (int) session.getAttribute("userId");
             AssignmentResult assignmentResult = assignmentResultService.getResult(userId, assignmentId);
             return ApiResponse.<AssignmentResultResponse>builder()
@@ -57,6 +58,14 @@ public class AssignmentController {
                     .message(Message.GET_RESULTASSIGNMENT_SUCCESS.getMessage())
                     .status(ResponseStatus.GET_RESULTASSIGNMENT_SUCESS.getStatus())
                     .build();
+        }
+        catch (Exception e){
+            return ApiResponse.<AssignmentResultResponse>builder()
+                    .data(null)
+                    .message(Message.GET_RESULTASSIGNMENT_FAIL.getMessage())
+                    .status(ResponseStatus.GET_RESULTASSIGNMENT_FAIL.getStatus())
+                    .build();
+        }
     }
 
     @PostMapping("submit")

@@ -15,6 +15,11 @@ public class ViewsController {
         return "new-assignment";
     }
 
+    @GetMapping("/new-course-test")
+    public String adminNewCourseTest() {
+        return "admin-new-courseTest";
+    }
+
     @GetMapping("/admin-cd")
     public String adminCD() {
         return "admin_CD";

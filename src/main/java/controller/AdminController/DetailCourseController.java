@@ -57,7 +57,6 @@ public class DetailCourseController {
     @PostMapping("{courseId}/course-content")
     public ApiResponse<CourseContentResponse> uploadCourseContent(@RequestBody CourseContentRequest request, @PathVariable int courseId) throws Exception {
         CourseContent courseContent = courseContentMapper.fromCourseContentRequestAndCourse(request, courseId);
-            courseContentService.add(courseContent);
             return ApiResponse.<CourseContentResponse>builder()
                     .message(Message.CREATE_COURSECONTENT_SUCCESS.getMessage())
                     .data(courseContentMapper.toCourseContentResponse(courseContentService.add(courseContent)))
@@ -65,12 +64,14 @@ public class DetailCourseController {
                     .build();
     }
     @PostMapping("{courseId}/course-test")
-    public ApiResponse<CourseTestResponse> uploadCourseTest(@RequestBody CourseTestRequest request, @PathVariable int courseId) throws Exception {
+    public String uploadCourseTest(@ModelAttribute CourseTestRequest request, @PathVariable int courseId) throws Exception {
         CourseTest courseTest = courseTestMapper.fromCourseTestRequestAndCourseId(request, courseId);
-            return ApiResponse.<CourseTestResponse>builder()
+        ApiResponse<CourseTestResponse> response= ApiResponse.<CourseTestResponse>builder()
                     .message(Message.CREATE_COURSETEST_SUCCESS.getMessage())
                     .data(courseTestMapper.toCourseTestResponse(courseTestService.add(courseTest)))
                     .status(ResponseStatus.CREATE_COURSETEST_SUCCESS.getStatus())
                     .build();
+        System.out.println(response);
+        return "redirect:/courses/"+ courseId;
     }
 }

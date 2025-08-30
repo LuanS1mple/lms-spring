@@ -16,4 +16,5 @@ public interface IEnrollCourseRepository/* extends JpaRepository<EnrollCourse, E
 
     public EnrollCourse save(EnrollCourse enrollCourse);
     public boolean delete(int userId,int courseId);
+    public int count();
 }

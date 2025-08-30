@@ -43,7 +43,7 @@ public class ClassRoomController {
 
     @GetMapping()
     public String getUserClass(HttpSession session, Model model){
-        int userId =(int) session.getAttribute("userId");
+            int userId =(int) session.getAttribute("userId");
         ApiResponse<List<ClassRoomOverviewResponse>> response ;
             List<ClassRoom> classRooms = enrollClassRoomSerivce.getClassesByUserId(userId);
             List<ClassRoomOverviewResponse> dataResponse

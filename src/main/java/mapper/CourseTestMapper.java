@@ -23,7 +23,7 @@ public class CourseTestMapper {
         courseTest.setTestTittle(request.getTestTitle());
         courseTest.setTestDescription(request.getTestDescription());
         courseTest.setType("quiz");
-        courseTest.setTestUrl(request.getTestUrl());
+        courseTest.setTestUrl(request.getTestUrl().getOriginalFilename());
         courseTest.setMaxScore(request.getMaxScore());
         courseTest.setDuration(request.getDuration());
         courseTest.setStatus(1);

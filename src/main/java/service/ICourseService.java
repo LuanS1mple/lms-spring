@@ -15,4 +15,7 @@ public interface ICourseService {
     public Course update(Course course);
     public void remove(Course course);
     public List<Course> inactiveCourses();
+    public int countActive();
+    public int countAll();
+    public List<Course> findByName(String name);
 }

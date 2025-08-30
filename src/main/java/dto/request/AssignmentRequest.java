@@ -14,8 +14,6 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @Builder
-
-
 public class AssignmentRequest {
     private int classId;
     @NotBlank

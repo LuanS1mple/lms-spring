@@ -107,4 +107,27 @@ public class CourseService implements ICourseService {
     public List<Course> inactiveCourses() {
         return courseRepository.inactiveCourses();
     }
+
+    @Override
+    public int countActive() {
+        int rs = courseRepository.countActive();
+        if(rs< 0){
+            throw new AppException(ErrorCode.GET_COURSES_FAIL);
+        }
+        return rs;
+    }
+
+    @Override
+    public int countAll() {
+        int rs = courseRepository.countAll();
+        if(rs< 0){
+            throw new AppException(ErrorCode.GET_COURSES_FAIL);
+        }
+        return rs;
+    }
+
+    @Override
+    public List<Course> findByName(String name) {
+        return Optional.ofNullable(courseRepository.findByName(name)).orElseThrow(() -> new AppException(ErrorCode.GET_COURSES_FAIL));
+    }
 }

@@ -90,6 +90,8 @@ public class UserCourseController {
     @PostMapping("enroll")
     public String enrollCourse(@RequestParam int courseId, HttpSession session) throws Exception {
         enrollCourseService.add((int)session.getAttribute("userId"), courseId);
+
+        System.out.println("ok");
         return "redirect:/courses?userId=" + session.getAttribute("userId");
     }
     @DeleteMapping("un-enroll")

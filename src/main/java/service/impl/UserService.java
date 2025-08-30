@@ -4,6 +4,8 @@ import entity.User;
 import exception.AppException;
 import exception.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import repositories.IUserRepository;
 //import repositories.db.SQLUserRepository;
@@ -18,6 +20,8 @@ import java.util.Optional;
 public class UserService implements IUserService {
     @Autowired
     private IUserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Override
     public boolean isCorrectAccount(String email, String password) {
         User user = getByEmail(email);
@@ -32,7 +36,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User add(User user) {
+    public User save(User user) {
         return Optional.ofNullable(userRepository.save(user))
                 .orElseThrow(() -> new AppException(ErrorCode.CREATED_USER_FAIL));
     }
@@ -99,6 +103,31 @@ public class UserService implements IUserService {
         catch (Exception e){
             return false;
         }
+    }
+
+    @Override
+    public int countAll() {
+        return userRepository.countAll();
+    }
+
+    @Override
+    public int countAdmin() {
+        return userRepository.countAdmin();
+    }
+
+    @Override
+    public int countActive() {
+        return userRepository.countActive();
+    }
+
+    @Override
+    public List<User> findByRoleAndName(int role, String name) {
+        return Optional.ofNullable(userRepository.findByRoleAndName(role,name)).orElseThrow(()-> new AppException(ErrorCode.GET_USERS_FAIL));
+    }
+
+    @Override
+    public boolean isCorrectPassword(String password, User user) {
+        return passwordEncoder.matches(password,user.getPassword());
     }
 
 }

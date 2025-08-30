@@ -23,9 +23,15 @@
        </div>
       </div>
 
-    <div class="align-items-right">
-      <i class="fas fa-user text-black"></i>
-    </div>
+        <div class="align-items-right">
+            <a th:href="@{/personal/info}" style="text-decoration:none; color:black; margin-right: 20px">
+                <i class="fas fa-user"></i> Profile
+            </a>
+
+            <a th:href="@{/logout/clear-token}" style="text-decoration:none; color:black;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
 
   </div>
 </div>

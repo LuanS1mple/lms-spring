@@ -30,14 +30,22 @@ public class UserCourseTestController {
     @GetMapping("{courseTestId}")
     @ResponseBody
     public ApiResponse<CourseTestResultResponse> getSResult(@PathVariable int courseTestId, HttpSession session){
-        ApiResponse<CourseTestResultResponse> response;
-        int userId = (int)session.getAttribute("userId");
+        try {
+            ApiResponse<CourseTestResultResponse> response;
+            int userId = (int)session.getAttribute("userId");
             CourseTestResult result = courseTestResultService.getResults(userId,courseTestId);
             return ApiResponse.<CourseTestResultResponse>builder()
                     .message(Message.GET_COURSETESTRESULT_SUCCESS.getMessage())
                     .data(courseTestResultMapper.toCourseTestResultResponse(result))
                     .status(ResponseStatus.GET_COURSETESTRESULT_SUCCESS.getStatus())
                     .build();
+        } catch (Exception e) {
+            return ApiResponse.<CourseTestResultResponse>builder()
+                    .message(Message.GET_COURSETESTRESULT_FAIL.getMessage())
+                    .data(null)
+                    .status(ResponseStatus.GET_COURSETESTRESULT_FAIL.getStatus())
+                    .build();
+        }
 
 
     }

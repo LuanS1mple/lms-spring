@@ -5,6 +5,7 @@ import constant.ResponseStatus;
 import dto.request.CourseRequest;
 import dto.response.CourseResponse;
 import dto.response.ApiResponse;
+import dto.response.DashBoardCourse;
 import entity.Course;
 import exception.AppException;
 import exception.ErrorCode;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import service.ICourseService;
+import service.IEnrollCourseService;
 
 import java.util.List;
 
@@ -22,15 +24,22 @@ import java.util.List;
 public class CourseController {
     @Autowired
     private ICourseService courseService;
+    @Autowired
+    private IEnrollCourseService enrollCourseService;
 
     @GetMapping("all")
-    public ApiResponse<List<CourseResponse>> getCourses(){
+    public ApiResponse<DashBoardCourse> getCourses(){
         List<Course> courses = courseService.getAll();
         List<CourseResponse> courseResponses = courses.stream().map(CourseMapper::fromCourse).toList();
-        return ApiResponse.<List<CourseResponse>>builder()
+        return ApiResponse.<DashBoardCourse>builder()
                 .message(Message.GET_COURSES_SUCCESS.getMessage())
                 .status((ResponseStatus.SUCCESS.getStatus()))
-                .data(courseResponses)
+                .data(DashBoardCourse.builder()
+                        .activeCourse(courseService.countActive())
+                        .totalCourse(courseService.countAll())
+                        .totalEnroll(enrollCourseService.count())
+                        .courses(courseResponses)
+                        .build())
                 .build();
     }
     @PostMapping("add")
@@ -80,5 +89,20 @@ public class CourseController {
                     .status(ResponseStatus.DELETE_COURSE_SUCCESS.getStatus())
                     .data(CourseMapper.fromCourse(course))
                     .build();
+    }
+    @GetMapping("all/search")
+    public ApiResponse<DashBoardCourse> getCoursesBySearch(@RequestParam String name){
+        List<Course> courses = courseService.findByName(name);
+        List<CourseResponse> courseResponses = courses.stream().map(CourseMapper::fromCourse).toList();
+        return ApiResponse.<DashBoardCourse>builder()
+                .message(Message.GET_COURSES_SUCCESS.getMessage())
+                .status((ResponseStatus.SUCCESS.getStatus()))
+                .data(DashBoardCourse.builder()
+                        .activeCourse(courseService.countActive())
+                        .totalCourse(courseService.countAll())
+                        .totalEnroll(enrollCourseService.count())
+                        .courses(courseResponses)
+                        .build())
+                .build();
     }
 }

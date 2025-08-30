@@ -1,6 +1,19 @@
 //const token = localStorage.getItem('token')
 const getCoursesUrl = "http://localhost:8080/lms/courses/all"
 const reloadUrl = "http://localhost:8080/lms/admin-cm"
+
+
+function refillCourse(){
+    const value = document.getElementById("searchBox").value;
+    document.getElementById('add').innerHTML = "";
+    if(value.trim() == null || value.trim()===""){
+        getAllCourse()
+    }
+    else{
+        getCourseSearch(value)
+    }
+}
+
 async function saveCourseChanges(e) {
   e.preventDefault()
   const form = e.target;
@@ -103,9 +116,18 @@ function getAllCourse() {
     .then(res => res.json())
     .then(showCourses)
 }
+function getCourseSearch(name) {
+    const courseSearchUrl = 'http://localhost:8080/lms/courses/all/search?name='+name
+    fetch(courseSearchUrl)
+    .then(res => res.json())
+    .then(showCourses)
+}
 function showCourses(data) {
+    document.getElementById("totalCourses").textContent = data.data.totalCourse;
+    document.getElementById("activeCourses").textContent = data.data.activeCourse;
+    document.getElementById("totalEnrolled").textContent = data.data.totalEnroll;
   console.log(data)
-  data.data.forEach(row => {
+  data.data.courses.forEach(row => {
     const element =
       `<tr>
             <td>
