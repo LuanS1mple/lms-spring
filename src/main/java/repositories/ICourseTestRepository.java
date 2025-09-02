@@ -15,4 +15,5 @@ public interface ICourseTestRepository /*extends JpaRepository<CourseTest, Integ
     public CourseTest findById(int id);
     public CourseTest save(CourseTest courseTest);
     public long count();
+    public void delete(int courseTestId);
 }

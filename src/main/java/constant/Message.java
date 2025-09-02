@@ -54,6 +54,8 @@ public enum Message {
     GET_COURSECONTENT_FAIL("Không thể lấy dữ liệu content"),
     GET_COURSETEST_FAIL("Không thể lấy dữ liệu test"),
     GET_ENROLLCLASROOM_FAIL("Không thể lấy thông tin enroll class"),
+    DELETE_COURSETEST_SUCCESS("Xóa bài test thành công"),
+    DELETE_COURSETEST_FAIL("Xóa bài test thất bại"),
     ENROLL_FAIL("Tham gia khóa học thất bại"),
     INVALID_INPUT("Input bạn sai"),
     FAIL("Lỗi");

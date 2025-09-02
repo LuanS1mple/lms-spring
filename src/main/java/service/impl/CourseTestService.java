@@ -128,4 +128,13 @@ public class CourseTestService implements ICourseTestService {
                 .orElseThrow(()-> new AppException(ErrorCode.GET_COURSETEST_FAIL));
     }
 
+    @Override
+    public void delete(int courseTestId) {
+        try {
+            courseTestRepository.delete(courseTestId);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
 }

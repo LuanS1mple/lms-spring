@@ -14,4 +14,5 @@ public interface ICourseTestService {
         public int size();
         public String getCourseTestUrl();
         public CourseTest getById(int id);
+        public void delete(int courseTestId);
 }

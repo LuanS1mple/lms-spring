@@ -78,9 +78,12 @@ async function addElementAssignment(dataAssignment) {
                             </div>
 
                             <div class="text-end d-flex flex-column gap-3">
-                                <button class="btn btn-outline-secondary" style="scale: 0.9;">
-                                    <a style="text-decoration: none; color: black;" href="admin-course-submissionAss.html?assignmentId=${assId}&due=${row.dueDate}">View submissions</a>
+                                <button class="btn"
+                                        style="scale: 0.9; border: 1px solid white; background-color: red; color: black;"
+                                        onclick="deleteCourseTest(${row.id})">
+                                    Delete Test
                                 </button>
+
                             </div>
                         </div>
                     </div>`
@@ -89,6 +92,14 @@ async function addElementAssignment(dataAssignment) {
   })
 }
 getCourseInfo()
+function deleteCourseTest(courseTestId){
+    const url = "http://localhost:8080/lms/courses/course-test/"+courseTestId
+    fetch(url,{
+        method: 'DELETE'
+    })
+      .then(res => res.json())
+      .then(data => alert(data.message))
+}
 
 async function addElementMaterial(dataMaterial) {
   console.log(dataMaterial);

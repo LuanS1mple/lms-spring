@@ -24,6 +24,7 @@ public class CourseTestResult {
     @Id
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "courseTestId")
+    @com.fasterxml.jackson.annotation.JsonIgnore
     private CourseTest courseTest;
 
     @Column(name = "url")

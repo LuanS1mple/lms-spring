@@ -16,6 +16,7 @@ import exception.ErrorCode;
 import mapper.CourseContentMapper;
 import mapper.CourseTestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import service.ICourseContentService;
 import service.ICourseService;
@@ -23,7 +24,7 @@ import service.ICourseTestService;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("courses")
 public class DetailCourseController {
     @Autowired
@@ -37,6 +38,7 @@ public class DetailCourseController {
     @Autowired
     private CourseTestMapper courseTestMapper;
     @GetMapping("{courseId}")
+    @ResponseBody
     public ApiResponse<CourseDetailResponse> getCourseDetail(@PathVariable int courseId) throws Exception {
         ApiResponse<CourseDetailResponse> response;
             Course course = courseService.getActiveById(courseId);
@@ -55,6 +57,7 @@ public class DetailCourseController {
         return response;
     }
     @PostMapping("{courseId}/course-content")
+    @ResponseBody
     public ApiResponse<CourseContentResponse> uploadCourseContent(@RequestBody CourseContentRequest request, @PathVariable int courseId) throws Exception {
         CourseContent courseContent = courseContentMapper.fromCourseContentRequestAndCourse(request, courseId);
             return ApiResponse.<CourseContentResponse>builder()
@@ -72,6 +75,16 @@ public class DetailCourseController {
                     .status(ResponseStatus.CREATE_COURSETEST_SUCCESS.getStatus())
                     .build();
         System.out.println(response);
-        return "redirect:/courses/"+ courseId;
+        return "redirect:/admin-cd?courseId="+ courseId;
+    }
+    @DeleteMapping("course-test/{courseTestId}")
+    @ResponseBody
+    public ApiResponse<Boolean> deleteCourseTest(@PathVariable int courseTestId){
+        courseTestService.delete(courseTestId);
+        return ApiResponse.<Boolean>builder()
+                .status(ResponseStatus.DELETE_COURSETEST_SUCESS.getStatus())
+                .message(Message.DELETE_COURSETEST_SUCCESS.getMessage())
+                .data(true)
+                .build();
     }
 }
