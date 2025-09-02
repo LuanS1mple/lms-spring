@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  docker-spring-sql-server:
+    container_name: docker-spring-sql-server
+    build:
+      context: ../   # đường dẫn tới project root (đặt file này trong docker-compose/)
+    ports:
+      - "8080:8080"
+    volumes:
+      - docker-spring-sql-server:/app/logs
+    depends_on:
+      - sql-server-configurator
+    restart: always
+
+  sql-server:
+    container_name: sql-server
+    image: mcr.microsoft.com/mssql/server:2022-CU9-ubuntu-20.04
+    ports:
+      - "1433:1433"
+    environment:
+      - SA_PASSWORD=${DB_PWD}
+      - ACCEPT_EULA=Y
+    volumes:
+      - docker-spring-sql-server-db:/var/opt/mssql
+#    healthcheck:
+#      test: ["CMD", "/bin/sh", "-c", "/dbHealthcheck.sh"]
+#      interval: 10s
+#      timeout: 3s
+#      retries: 10
+#      start_period: 10s
+    restart: always
+
+  sql-server-configurator:
+    image: mcr.microsoft.com/mssql/server:2022-CU9-ubuntu-20.04
+    depends_on:
+      - sql-server
+#      sql-server:
+#        condition: service_healthy
+    volumes:
+      - ./database:/docker-entrypoint-initdb.d
+      - ./dbInit.sh:/dbInit.sh
+      - ./dbHealthcheck.sh:/dbHealthcheck.sh
+    command: ["sh", "-c", "./dbInit.sh"]
+    environment:
+      - DB_PWD=${DB_PWD}
+
+volumes:
+  docker-spring-sql-server:
+  docker-spring-sql-server-db:

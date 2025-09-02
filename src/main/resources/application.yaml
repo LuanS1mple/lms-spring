@@ -5,10 +5,10 @@ server:
 
 spring:
     datasource:
-        url: jdbc:sqlserver://localhost:1433;databaseName=lms_cpl;encrypt=true;trustServerCertificate=true
+        url: jdbc:sqlserver://sql-server:1433;databaseName=lms_cpl;encrypt=true;trustServerCertificate=true
         driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
         username: sa
-        password: 123
+        password: Abc@12345
     jpa:
         hibernate:
             ddl-auto: none
