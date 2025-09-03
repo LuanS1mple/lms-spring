@@ -44,7 +44,16 @@ services:
     command: ["sh", "-c", "./dbInit.sh"]
     environment:
       - DB_PWD=${DB_PWD}
-
+  nginx:
+    container_name: nginx
+    image: nginx:1.29.1
+    ports:
+      - "80:80"            # mở port HTTP ra ngoài
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+    depends_on:
+      - docker-spring-sql-server
+    restart: always
 volumes:
   docker-spring-sql-server:
   docker-spring-sql-server-db:
